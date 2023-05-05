@@ -66,7 +66,7 @@ for (let i = 0; i < posts.length; i++) {
     <div class="post-meta">                    
         <div class="post-meta__icon">`
     if (posts[i].author.image==null) {
-        elementHTML+=`<div class="profile-pic"><span>${getInitials(posts[i].author.name)}</span></div>`
+        elementHTML+=`<div class="profile-pic-default"><span>${getInitials(posts[i].author.name)}</span></div>`
     }else{
         elementHTML+=`<img class="profile-pic" src="${posts[i].author.image}" alt="${posts[i].author.name}">`
     }
