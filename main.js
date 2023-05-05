@@ -96,7 +96,7 @@ for (let i = 0; i < posts.length; i++) {
             </a>
         </div>
         <div class="likes__counter">
-            Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+            Piace a <b id="like-counter-${posts[i].id}" class="js-likes-counter">${posts[i].likes}</b> persone
         </div>
     </div> 
     </div>`
@@ -108,13 +108,14 @@ let liked=[]
 const likeBtn=document.querySelectorAll(".like-button")
 for (let i = 0; i < likeBtn.length; i++) {
     const oneLike = likeBtn[i];
-    ///funziona sia in console che nel valore dell'oggetto, ma il numero su schermo non cambia
+    
     
     oneLike.addEventListener("click",function(event){
         event.preventDefault()
+        const likecounter=document.getElementById(`like-counter-${this.getAttribute("data-postid")}`)
         let currentPostId=Number(this.getAttribute("data-postid"))
         console.log(currentPostId)
-        let newLikeCount
+        
         if (liked.includes(currentPostId)){
             oneLike.classList.remove("like-button--liked")
             const indexID=liked.indexOf(currentPostId)
@@ -122,17 +123,19 @@ for (let i = 0; i < likeBtn.length; i++) {
             console.log(indexID)
             console.log(liked)
             console.log(posts[currentPostId-1].likes)
-            newLikeCount=posts[currentPostId-1].likes-=1
+            posts[currentPostId-1].likes--
+            likecounter.innerHTML=posts[currentPostId-1].likes
+            console.log(posts[currentPostId-1])
 
         } else {
             oneLike.classList.add("like-button--liked")
             const indexID=liked.indexOf(currentPostId)
             liked.push(Number(currentPostId))
             console.log(liked)
-            newLikeCount=posts[currentPostId-1].likes+=1
-            posts[currentPostId-1].likes=newLikeCount
+            posts[currentPostId-1].likes+=1
+            likecounter.innerHTML=posts[currentPostId-1].likes
         }
-        posts[currentPostId-1].likes=newLikeCount
+        
         console.log(posts[currentPostId-1])
     })
 }
